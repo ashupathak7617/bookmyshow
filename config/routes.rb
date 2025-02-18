@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get "movies/index"
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
   #devise_for :customers
@@ -25,5 +26,8 @@ Rails.application.routes.draw do
   get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
 
   # Defines the root path route ("/")
-   root "home#index"
+   # root "home#index"
+
+   resources :movies
+   root "movies#index"
 end
