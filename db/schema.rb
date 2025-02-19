@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_02_18_122755) do
+ActiveRecord::Schema[7.2].define(version: 2025_02_19_130255) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -122,6 +122,25 @@ ActiveRecord::Schema[7.2].define(version: 2025_02_18_122755) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "tickets", force: :cascade do |t|
+    t.decimal "price"
+    t.string "status"
+    t.bigint "movie_id", null: false
+    t.bigint "show_id", null: false
+    t.bigint "customer_id", null: false
+    t.bigint "screen_id", null: false
+    t.bigint "theater_id", null: false
+    t.bigint "seat_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["customer_id"], name: "index_tickets_on_customer_id"
+    t.index ["movie_id"], name: "index_tickets_on_movie_id"
+    t.index ["screen_id"], name: "index_tickets_on_screen_id"
+    t.index ["seat_id"], name: "index_tickets_on_seat_id"
+    t.index ["show_id"], name: "index_tickets_on_show_id"
+    t.index ["theater_id"], name: "index_tickets_on_theater_id"
+  end
+
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "screens", "theaters"
@@ -129,4 +148,10 @@ ActiveRecord::Schema[7.2].define(version: 2025_02_18_122755) do
   add_foreign_key "shows", "movies"
   add_foreign_key "shows", "screens"
   add_foreign_key "shows", "theaters"
+  add_foreign_key "tickets", "customers"
+  add_foreign_key "tickets", "movies"
+  add_foreign_key "tickets", "screens"
+  add_foreign_key "tickets", "seats"
+  add_foreign_key "tickets", "shows"
+  add_foreign_key "tickets", "theaters"
 end

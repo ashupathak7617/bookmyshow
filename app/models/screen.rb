@@ -8,10 +8,14 @@ class Screen < ApplicationRecord
 	has_many :seats
 
 	def self.ransackable_attributes(auth_object = nil)
-    ["created_at", "id", "screen_name", "theater_id", "updated_at"]
+    ["created_at", "id", "screen_name", "theater_id", "updated_at", "srceen_name_cont", "srceen_name_eq", "srceen_name_start", "srceen_name_end"]
   end
 
   def self.ransackable_associations(auth_object = nil)
     ["seats", "shows", "theater"]
+  end
+
+  def to_s
+    screen_name 
   end
 end

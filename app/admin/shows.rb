@@ -6,6 +6,7 @@ ActiveAdmin.register Show do
   # Uncomment all parameters which should be permitted for assignment
   #
     permit_params :show_time, :movie_id, :theater_id, :screen_id
+    config.batch_actions = false
   #
   # or
   #

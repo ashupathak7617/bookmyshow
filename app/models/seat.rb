@@ -1,5 +1,6 @@
 class Seat < ApplicationRecord
   belongs_to :screen
+  has_many :tickets
 
   def self.ransackable_associations(auth_object = nil)
     ["screen"]

@@ -3,6 +3,7 @@ class Theater < ApplicationRecord
 	has_many :screens
 	has_many :shows
   has_many :movies, through: :shows
+  has_many :tickets
 	# validates_associated :screens
 
   def self.ransackable_attributes(auth_object = nil)

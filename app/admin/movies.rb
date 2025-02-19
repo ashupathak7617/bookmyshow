@@ -8,6 +8,7 @@ ActiveAdmin.register Movie do
   # Uncomment all parameters which should be permitted for assignment
   #
   permit_params :name, :release_date, :image, :theaters_id
+  config.batch_actions = false
   #
   # or
   #

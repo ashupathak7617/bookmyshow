@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
+  get "tickets/index"
   get "movies/index"
+
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
   #devise_for :customers
@@ -28,6 +30,8 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
    # root "home#index"
 
-   resources :movies
+  resources :movies
+  resources :tickets 
+  
    root "movies#index"
 end

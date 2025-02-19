@@ -6,6 +6,7 @@ ActiveAdmin.register Theater do
   # Uncomment all parameters which should be permitted for assignment
   #
     permit_params :name, :location, :movies_id
+    config.batch_actions = false
   #
   # or
   #
@@ -14,5 +15,7 @@ ActiveAdmin.register Theater do
   #   permitted << :other if params[:action] == 'create' && current_user.admin?
   #   permitted
   # end
+
+  
   
 end

@@ -8,9 +8,11 @@
       <h5 class="d-flex ms-auto order-5"> <%= link_to "logout",destroy_customer_session_path, data: { turbo_method: :delete },class:"dropdown-item"  %>
       </h5>
     <% end %>
-    <form class="d-flex">
-      <input class="form-control me-2" type="search" placeholder="Search Movies" aria-label="Search">
-      <button class="btn btn-outline-success" type="submit">Search</button>
-    </form>
+    
+    <%= form_with url: "/movies", method: :get , class:"d-inline-flex
+" do |form| %>
+      <%= form.text_field :movie, class: "form-control me-2 d-inline-flex" %>
+      <%= form.submit "Search", class:"btn btn-outline-success" %>
+    <% end %>
   </div>
 </nav>
