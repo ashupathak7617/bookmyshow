@@ -2,9 +2,9 @@
 <% @movies.each do |movie|%>
   <% if movie.image.attached? %>
     <div class=" ">
-      <%=  image_tag movie.image, size: "360x280", class: "border border-5 mb-2" %>
+      <%=  image_tag  movie.image, size: "360x280", class: "border border-5 mb-2" %>
     </div>
   <% end %>
-  <p> <%=movie.name%></p>
+  <p> <%= link_to movie.name, movie_path(id: movie.id)%></p>
   <p> <%=movie.release_date %></p>
 <% end %>

@@ -2,7 +2,8 @@ class Movie < ApplicationRecord
 	has_many :shows
 	has_many :theaters, through: :shows
   has_one_attached :image
-
+  
+  scope :find_by_name, ->(name) { where(name: name) if name }
 
   # validates :file, content_type: ['image/png', 'image/jpg', 'image/jpeg'], size: { less_than: 5.megabytes }
 
@@ -13,4 +14,5 @@ class Movie < ApplicationRecord
   def self.ransackable_associations(auth_object = nil)
     ["shows", "theaters"]
   end
+
 end

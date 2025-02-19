@@ -6,6 +6,7 @@ ActiveAdmin.register Seat do
   # Uncomment all parameters which should be permitted for assignment
   #
    permit_params :seat_no, :screen_id
+   config.batch_actions = false
   #
   # or
   #
