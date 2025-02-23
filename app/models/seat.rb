@@ -7,6 +7,6 @@ class Seat < ApplicationRecord
   end
 
   def self.ransackable_attributes(auth_object = nil)
-    ["created_at", "id", "screen_id", "seat_no", "updated_at"]
+    ["created_at", "id", "screen_id", "seat_no", "updated_at","tickets_id_eq","status_cont","status_eq","status_start","status_end"]
   end
 end

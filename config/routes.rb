@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get "shows/index"
+  get "shows/show"
   get "tickets/index"
   get "movies/index"
 
@@ -32,6 +34,8 @@ Rails.application.routes.draw do
 
   resources :movies
   resources :tickets 
+  resources :shows
+  resources :bookings
   
    root "movies#index"
 end

@@ -12,7 +12,7 @@
           	<div class="card" style="width: 53rem;">
 			        <% if @movie.image.attached? %>
 						    <div class=" ">
-						      <%=  image_tag  @movie.image, size: "850x500", class: "border border-5 mb-2" %>
+						      <%=  image_tag  @movie.image, size: "1200x500", class: "border border-5 mb-2 border border-info" %>
 						    </div>
 			        <% end %>
 
@@ -21,7 +21,8 @@
         </div>
         <h4 class="ms-4"><%= @movie.name %> <br></h4>
         <div class="mx-auto mb-2">
-        	<%= link_to "Book Ticket ", tickets_path( movie:@movie ), class:"btn btn-outline-success" %>
+        	<%= link_to "Book Ticket ", shows_path( movie: @movie ), class:"btn btn-outline-success" %>
+          <%= link_to "Back", root_path, class: "btn btn-outline-primary"%>
         </div>
       </div>
     </div>
@@ -44,19 +45,19 @@
 <% end %>
 
 <p><strong>Movie Name :</strong> <%= @movie.name %></p>
-           <p><strong>Shows Times </strong><br>
-           	<% @movie.shows.each do |show| %>
-						  <%= show.show_time%><br>
-						<% end %>
-           </p>
-           <p><strong>Theaters </strong><br>
-           	<% @movie.theaters.each do |theater| %>
-						  <p><strong>Name :</strong><%= theater.name%> </p>
-						  <p><strong>Location :</strong><%= theater.location%></p><br>
-						  <p><strong>Show Time :</strong>
-						  	<%= theater.shows.each do |show|%>
-						  	   <%= show.show_time %>
-                <% end %>
-						  </p><br>
-						<% end %>
-           </p>
+  <p><strong>Shows Times </strong><br>
+  	<% @movie.shows.each do |show| %>
+    <%= show.show_time%><br>
+  <% end %>
+  </p>
+  <p><strong>Theaters </strong><br>
+  	<% @movie.theaters.each do |theater| %>
+      <p><strong>Name :</strong><%= theater.name%> </p>
+      <p><strong>Location :</strong><%= theater.location%></p><br>
+      <p><strong>Show Time :</strong>
+      	<% theater.shows.each do |show|%>
+      	   <%= show.show_time %>
+        <% end %>
+      </p><br>
+    <% end %>
+  </p>

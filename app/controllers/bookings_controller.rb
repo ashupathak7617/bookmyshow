@@ -5,30 +5,28 @@ class BookingsController < ApplicationController
     @booking = Booking.new
     @movie = Movie.find_by(id: params[:movie_id])
     @theater = Theater.find_by(id: params[:theater_id])
-    @screen = @theater.screens
     @show = Show.find_by(id: params[:show_id])
-
-     
-    end
+  end
 
   def create
-     
-    # @movie = Movie.find(params_permit[:movie_id])
-    # @theater = Theater.find(params_permit[:theater_id])
-    # @screen = @theater.screens
-    # @show = Show.find(params_permit[:show_id])
-     # @seats = @booking.seats.where(params[:booking][:seat_ids])
-     byebug
-    @booking = Booking.new(params_permit)
-    
-    if @booking.save
-        byebug
-        @booking.seats.update_all(status: "false")
-      redirect_to movies_path ,notice: "Your Ticket Booked successfully "
-    else
-       render :new
-    end
 
+    @booking = Booking.new(params_permit)
+    if @booking.seat_ids.present?
+      if @booking.save
+        
+        @booking.seats.update_all(status: "false")
+        redirect_to booking_path(id: @booking.id) ,notice: "Your Ticket Booked successfully "
+      else
+       render :new
+      end
+
+    else
+      redirect_to movies_path, alert: "Please select atleast one seat"
+    end
+  end
+
+  def show
+    @booking  = Booking.find(params[:id])
   end
   
   private

@@ -1,0 +1,27 @@
+
+<div class="container">
+  <div class= "row">
+    <div class="col-lg-12 mx-auto">
+      <div class="card card border-sky mt-2">
+        <div class="card-header ">
+          <h4><h2><%= @movie.name %></h2></h4>
+          <div class="card-body">
+            <% @movie.theaters.each  do |theater|%>
+              <div class="card col-lg-12">
+                <div class="card-body">
+                  <p class="d-inline-flex px-10"><%= theater.name%> - <%=theater.location%></p>
+                  <% theater.shows.each do |show| %>
+                    <%= link_to show.show_time, new_booking_path(movie_id: @movie.id, theater_id: theater.id, show_id: show.id),class:"btn btn-outline-success" %>
+                  <% end %>
+                </div>
+              </div>
+             <% end %>
+             <div class="mt-2">
+               <%=link_to "Back", movie_path(id:@movie.id), class:"btn btn-outline-primary" %>
+             </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
