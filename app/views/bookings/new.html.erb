@@ -8,7 +8,6 @@
         <div class="card-body ">
           <div class="container">
           	<%= form_with model: @booking do |f| %>
-
 	            <div class="text-center">
 	            	<%= f.hidden_field :theater_id, value: @theater.id %>
 	            	<%= f.hidden_field :movie_id, value: @movie.id %>
@@ -16,17 +15,19 @@
 	            	<%= f.hidden_field :show_id, value: @show.id %>
 	            	<% @theater.screens.each do |screen|%>
                   <%#= f.hidden_field :screen_id, value: screen.id %>
-	                <% screen.seats.each do | seat| %>
-	                   <% if seat.status == "true" %>
-	                    <%= check_box_tag 'booking[seat_ids][]', seat.id %>
-	                    <%= seat.seat_no %>
-                     <% end %>
-	                  
-	                <% end %>
+	                  <% screen.seats.each do | seat| %>
+	                    <% if seat.status == "true" %>
+	                   
+	                     <%= check_box_tag 'booking[seat_ids][]', seat.id, class: "d-inline-flex"  %>
+	                    
+	                     <p class="d-inline p-2 bg-info text-white rounded rounded-5"><%= seat.seat_no %></p>
+	                    <% end %> 
+                    <% end %>
 	              <% end %>
 	            </div>
 	            <div class="text-center mt-5">
 	            	<%= f.submit "Book Seat", class:"btn btn-outline-success"%>
+	            	<%= link_to "Back",shows_path(movie: @movie), class:"btn btn-outline-primary"%>
 	            </div>
             <% end %>
           </div>
