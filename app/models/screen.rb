@@ -18,4 +18,16 @@ class Screen < ApplicationRecord
   def to_s
     screen_name 
   end
+
+  def name
+    screen_name 
+  end
+
+  def screen_seats(seat_ids)
+    where(id: seat_ids).pluck(:name)
+  end
+
+  def self.find_secreen(seat_id)
+    find_by(id: seat_id)
+  end
 end

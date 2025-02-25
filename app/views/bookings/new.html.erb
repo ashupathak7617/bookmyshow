@@ -16,9 +16,11 @@
 	            	<% @theater.screens.each do |screen|%>
                   <%#= f.hidden_field :screen_id, value: screen.id %>
 	                  <% screen.seats.each do | seat| %>
-	                    <% if seat.status == "true" %>
+
+	                    <% if seat.status == true %>
 	                   
 	                     <%= check_box_tag 'booking[seat_ids][]', seat.id, class: "d-inline-flex"  %>
+	                     
 	                    
 	                     <p class="d-inline p-2 bg-info text-white rounded rounded-5"><%= seat.seat_no %></p>
 	                    <% end %> 

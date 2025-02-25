@@ -5,7 +5,7 @@ ActiveAdmin.register Theater do
   #
   # Uncomment all parameters which should be permitted for assignment
   #
-    permit_params :name, :location, :movies_id
+    permit_params :name, :location
     config.batch_actions = false
   #
   # or

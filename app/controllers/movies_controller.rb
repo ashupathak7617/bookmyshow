@@ -9,9 +9,8 @@ class MoviesController < ApplicationController
   end
 
   def show
-    
     @movie = Movie.find(params[:id])
-    @theater = @movie.theaters.uniq
+    @theater = @movie.theaters
     @shows = @movie.shows
     # @screen = @theater.screens
     # @show = @screen.shows

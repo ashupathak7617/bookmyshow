@@ -2,24 +2,19 @@
 
 <div class="container">
   <div class= "row">
-    <div class="col-lg-12 mx-auto">
-      <div class="card card border-primary mt-2">
+    <div class="col-lg-8 mx-auto">
+      <div class="card card mt-2" , style="background-color: #e3f2fd;">
         <div class="card-header text-center", style="background-color: #e3f2fd;">
           <h4>Movie Details</h4>
         </div>
-        <div class="card-body border-none ">
-          <div class="container">
-          	<div class="card" style="width: 53rem;">
-			        <% if @movie.image.attached? %>
-						    <div class=" ">
-						      <%=  image_tag  @movie.image, size: "1200x500", class: "border border-5 mb-2 border border-info" %>
-						    </div>
-			        <% end %>
-
-			      </div>
-          </div>
-        </div>
-        <h4 class="ms-4"><%= @movie.name %> <br></h4>
+        	<div class="card text-center">
+		        <% if @movie.image.attached? %>
+					    <div class=" ">
+					      <%=  image_tag  @movie.image, size: "500x420", class: "border border-5  border border-info" %>
+					    </div>
+		        <% end %>
+		      </div>
+        <h4 class="text-center"><%= @movie.name %> <br></h4>
         <div class="mx-auto mb-2">
         	<%= link_to "Book Ticket ", shows_path( movie: @movie ), class:"btn btn-outline-success" %>
           <%= link_to "Back", root_path, class: "btn btn-outline-primary"%>
@@ -28,36 +23,11 @@
     </div>
   </div>
 </div>
+        
+          
+         
+        
 
 
 
 
-<%= @movie.name %> <br>
-<% @theater.each do |th| %>
-  <%= th.name %><br>
-  <%=th.location %><br>
- <h5>****************</h5>
-<% end %><br>
-
-<% @movie.shows.each do |show| %>
-  <%= show.show_time%><br>
-  <h5>*****************</h5>
-<% end %>
-
-<p><strong>Movie Name :</strong> <%= @movie.name %></p>
-  <p><strong>Shows Times </strong><br>
-  	<% @movie.shows.each do |show| %>
-    <%= show.show_time%><br>
-  <% end %>
-  </p>
-  <p><strong>Theaters </strong><br>
-  	<% @movie.theaters.each do |theater| %>
-      <p><strong>Name :</strong><%= theater.name%> </p>
-      <p><strong>Location :</strong><%= theater.location%></p><br>
-      <p><strong>Show Time :</strong>
-      	<% theater.shows.each do |show|%>
-      	   <%= show.show_time %>
-        <% end %>
-      </p><br>
-    <% end %>
-  </p>

@@ -1,7 +1,6 @@
 <nav class="navbar navbar-light" style="background-color: #e3f2fd;">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">BookMyShow</a>
-    <%= link_to "Movies", movies_path, class:"me-auto navbar-brand" %>
+    <a class="navbar-brand" href="/">BookMyShow</a>
     <% if customer_signed_in? %>
       <a class="nav-link active text-default ms-20  " aria-current="page" href="#"><i class="fa fa-user-circle" aria-hidden="true"></i> <%= current_customer.email%></a>
       <div class="dropdown me-auto">
@@ -13,11 +12,10 @@
           </h5>
         </ul>
       </div>
-      
     <% end %>
     
     <%= form_with url: "/movies", method: :get , class:"d-inline-flex ms-auto" do |form| %>
-      <%= form.text_field :movie, class: "form-control me-2 d-inline-flex" %>
+      <%= form.text_field :movie, class: "form-control me-2 d-inline-flex"%>
       <%= form.submit "Search", class:"btn btn-outline-success" %>
     <% end %>
   </div>

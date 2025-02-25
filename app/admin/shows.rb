@@ -15,5 +15,44 @@ ActiveAdmin.register Show do
   #   permitted << :other if params[:action] == 'create' && current_user.admin?
   #   permitted
   # end
-  
-end
+
+    # form do |f|
+    #   f.inputs do
+    #     f.input :movie
+    #     f.input :screen, as: :nested_select,
+    #      level_1: { 
+    #       attribute: :theater,
+    #       collection: Theater.all
+    #     },
+    #      level_2: { 
+    #       attribute: :screen,
+    #       collection: Screen.all
+    #     }
+    #     # f.input :show_time, as: :date_time_picker
+    #   end
+    #   f.actions
+    # end
+
+  # form do |f|
+  #   f.inputs do
+  #     f.input :movie
+  #   end
+  #   f.inputs Theater do
+  #     f.has_many :screens, heading: false, allow_destroy: true do |a|
+  #       a.input :screen_name
+  #     end
+  #   end
+  #   f.actions
+  # end
+
+  # form do |f|
+  #   f.inputs do
+  #     f.input :movie
+  #     f.input :theater
+  #     f.input :screen
+  #     f.input :show_time, as: :date_time_picker
+      
+  #   end
+  #   f.actions
+  # end
+end 

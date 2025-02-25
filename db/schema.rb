@@ -118,7 +118,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_02_21_132536) do
     t.bigint "screen_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "status", default: "true"
+    t.boolean "status", default: true
     t.index ["screen_id"], name: "index_seats_on_screen_id"
   end
 

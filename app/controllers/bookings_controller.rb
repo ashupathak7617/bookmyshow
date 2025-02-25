@@ -1,6 +1,10 @@
 class BookingsController < ApplicationController
   before_action :authenticate_customer!
   
+  def index
+    @booking = Booking.where(customer_id: current_customer.id)
+  end
+
   def new
     @booking = Booking.new
     @movie = Movie.find_by(id: params[:movie_id])
@@ -9,19 +13,18 @@ class BookingsController < ApplicationController
   end
 
   def create
-
-    @booking = Booking.new(params_permit)
+      @booking = Booking.new(params_permit)
     if @booking.seat_ids.present?
       if @booking.save
         
-        @booking.seats.update_all(status: "false")
+        @booking.seats.update_all(status: false)
         redirect_to booking_path(id: @booking.id) ,notice: "Your Ticket Booked successfully "
       else
        render :new
       end
 
     else
-      redirect_to movies_path, alert: "Please select atleast one seat"
+      redirect_to movies_path, alert: "Your Booking Has Been Cancelled ! Please select atleast one seat...!"
     end
   end
 
