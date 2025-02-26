@@ -17,7 +17,7 @@ class BookingsController < ApplicationController
     if @booking.seat_ids.present?
       if @booking.save
         
-        @booking.seats.update_all(status: false)
+      # @booking.seats.update_all(status: false)
         redirect_to booking_path(id: @booking.id) ,notice: "Your Ticket Booked successfully "
       else
        render :new

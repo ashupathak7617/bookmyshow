@@ -16,22 +16,22 @@ ActiveAdmin.register Show do
   #   permitted
   # end
 
-    # form do |f|
-    #   f.inputs do
-    #     f.input :movie
-    #     f.input :screen, as: :nested_select,
-    #      level_1: { 
-    #       attribute: :theater,
-    #       collection: Theater.all
-    #     },
-    #      level_2: { 
-    #       attribute: :screen,
-    #       collection: Screen.all
-    #     }
-    #     # f.input :show_time, as: :date_time_picker
-    #   end
-    #   f.actions
-    # end
+    form do |f|
+      f.inputs 'Show Details' do
+        f.input :movie
+        f.input :screen_id, required: true, as: :nested_select,
+         level_1: { 
+          attribute: :theater_id,
+          collection: Theater.all
+        },
+         level_2: { 
+          attribute: :screen_id,
+          collection: Screen.all
+        }
+        # f.input :show_time, as: :date_time_picker
+      end
+      f.actions
+    end
 
   # form do |f|
   #   f.inputs do
@@ -55,4 +55,13 @@ ActiveAdmin.register Show do
   #   end
   #   f.actions
   # end
+
+  show do
+    attributes_table do
+      row :movie
+      row :theater
+      row :screen
+    end
+  end
 end 
+
