@@ -25,8 +25,8 @@ ActiveAdmin.register Screen do
   end
   # form do |f|
   #   f.inputs do
-  #     f.input :first_name
-  #     f.input :last_name, required: false
+  #     f.input :theater
+  #     f.input :, required: false
   #     f.input :email
   #   end
   #   f.actions

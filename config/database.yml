@@ -1,7 +1,7 @@
 development:
   adapter: postgresql
   encoding: unicode
-  database: bookmyshow
+  database: bookmyshowapp
   pool: 5
   host: localhost
   username: postgres  

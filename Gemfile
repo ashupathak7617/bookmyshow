@@ -65,3 +65,4 @@ gem "byebug", "~> 11.1"
 gem 'activeadmin'
 gem 'sassc-rails'
 gem 'arctic_admin'
+gem 'activeadmin_addons'
