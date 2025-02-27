@@ -52,7 +52,7 @@ ActiveAdmin.register Movie do
       row :name
       row :release_date
       row :image do |ad|
-        image_tag url_for(ad.image)
+        image_tag url_for(ad.image),size: "200x200"
       end
     end
   end

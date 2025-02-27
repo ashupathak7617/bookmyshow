@@ -5,7 +5,7 @@ ActiveAdmin.register Seat do
   #
   # Uncomment all parameters which should be permitted for assignment
   #
-   permit_params :seat_no, :screen_id, :status
+   permit_params :seat_no, :screen_id, :seat_create, :status
    config.batch_actions = false
   #
   # or
@@ -15,5 +15,25 @@ ActiveAdmin.register Seat do
   #   permitted << :other if params[:action] == 'create' && current_user.admin?
   #   permitted
   # end
+
+  form do |f|
+    f.inputs do
+      f.input :screen
+      f.input :seat_create, placeholder:"Enter number of seats you want to create"
+      # f.input :seat_no, placeholder:"Enter number of seats you want to create"
+    end
+    f.actions
+  end
+
+
+  controller do
+     
+     def create 
+      screen_id = params[:seat][:screen_id].to_i
+      seat_create = params[:seat][:seat_create].to_i
+      Seat.create_seats(screen_id, seat_create)
+      
+     end
+  end
   
 end

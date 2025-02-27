@@ -1,8 +1,8 @@
 <div class="container">
   <div class= "row">
-    <div class="col-lg-6 mx-auto">
+    <div class="col-lg-8 mx-auto">
       <div class="card card border-primary mt-2">
-        <div class="card-header text-center">
+        <div class="card-header text-center border-primary">
           <h4>select seat</h4>
         </div>
         <div class="card-body ">
@@ -20,8 +20,6 @@
 	                    <% if seat.status == true %>
 	                   
 	                     <%= check_box_tag 'booking[seat_ids][]', seat.id, class: "d-inline-flex"  %>
-	                     
-	                    
 	                     <p class="d-inline p-2 bg-info text-white rounded rounded-5"><%= seat.seat_no %></p>
 	                    <% end %> 
                     <% end %>
@@ -29,7 +27,7 @@
 	            </div>
 	            <div class="text-center mt-5">
 	            	<%= f.submit "Book Seat", class:"btn btn-outline-success"%>
-	            	<%= link_to "Back",shows_path(movie: @movie), class:"btn btn-outline-primary"%>
+	            	<%= link_to "Cancle",shows_path(movie: @movie), class:"btn btn-outline-primary"%>
 	            </div>
             <% end %>
           </div>
@@ -38,3 +36,6 @@
     </div>
   </div>
 </div>
+
+
+
