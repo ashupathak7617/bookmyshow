@@ -6,14 +6,21 @@ class BookingsController < ApplicationController
   end
 
   def new
+    
+    # @customer = current_customer
     @booking = Booking.new
     @movie = Movie.find_by(id: params[:movie_id])
+    
     @theater = Theater.find_by(id: params[:theater_id])
     @show = Show.find_by(id: params[:show_id])
+    # @screen = Screen.find_by(id: params[:screen_id])
+    @seats = Seat.where(screen_id: params[:screen_id])
+   
   end
 
   def create
-      @booking = Booking.new(params_permit)
+    
+    @booking = Booking.new(params_permit)
     if @booking.seat_ids.present?
       if @booking.save
         

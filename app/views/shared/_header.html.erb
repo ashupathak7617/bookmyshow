@@ -2,7 +2,7 @@
   <div class="container-fluid">
     <a class="navbar-brand" href="/">BookMyShow</a>
     <%= form_with url: "/movies", method: :get , class:"d-inline-flex me-auto" do |form| %>
-      <%= form.text_field :movie,value: params[:movie],placeholder:"search movies", class: "form-control me-2 d-inline-flex"%>
+      <%= form.text_field :search, value: params[:search], placeholder:"search movies", class: "form-control me-2 d-inline-flex"%>
       <%= form.submit "Search", type: "hidden", class:"btn btn-outline-success" %>
     <% end %>
 

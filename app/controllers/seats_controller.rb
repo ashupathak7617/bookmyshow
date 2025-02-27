@@ -1,5 +1,5 @@
 class SeatsController < ApplicationController
   def index
-    @theater = Theater.find( params[:id])
+    @seats = Seat.where(screen_id: params[:screen_id])
   end
 end

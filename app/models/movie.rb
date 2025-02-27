@@ -3,6 +3,7 @@ class Movie < ApplicationRecord
 	has_many :theaters, through: :shows
   has_one_attached :image
   
+  validates :name, :image, :release_date, presence: true
   scope :find_by_name, ->(name) { where(name: name) if name }
 
   # validates :file, content_type: ['image/png', 'image/jpg', 'image/jpeg'], size: { less_than: 5.megabytes }

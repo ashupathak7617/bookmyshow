@@ -1,7 +1,7 @@
 class ShowsController < ApplicationController
+  before_action :movie
   
   def index
-    @movie = Movie.find(params[:movie])
     @theaters = @movie.theaters.distinct
   end
 

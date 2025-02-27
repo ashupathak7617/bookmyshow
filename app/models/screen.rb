@@ -2,6 +2,8 @@ class Screen < ApplicationRecord
 
 	# validates :screen_name, uniqueness: true
 	validates_uniqueness_of   :screen_name, scope: :theater_id
+  validates :screen_name, presence: true
+  
 
 	belongs_to :theater
 	has_many :shows

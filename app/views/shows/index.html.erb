@@ -17,7 +17,7 @@
                       </div>
                       <div class="w-75 margin- 10">
                         <% theater.shows.where(movie_id: @movie.id).each do |show| %>
-                          <%= link_to show.show_time.strftime("%l:%M%p"), new_booking_path(movie_id: @movie.id, theater_id: theater.id, show_id: show.id),class:"btn btn-outline-success d-inline-flex" %>
+                          <%= link_to show.show_time.strftime("%l:%M%p"), new_booking_path( movie_id: @movie.id, theater_id: theater.id, show_id: show.id,screen_id:show.screen_id),class:"btn btn-outline-success d-inline-flex" %>
                         <% end %>
                       </div>
                     </div>

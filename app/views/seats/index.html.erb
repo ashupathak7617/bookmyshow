@@ -7,14 +7,14 @@
         </div>
         <div class="card-body ">
           <div class="container">
-            <% @theater.screens.each do |screen|%>
-              <% screen.seats.each do | seat| %>
+            <% @seats.each do |seat|%>
+              
                 <%= seat.seat_no %>
-              <% end %>
+             
             <% end %>
           </div>
           <div>
-            <%= link_to "Back", %>
+           
           </div>
           
         </div>
