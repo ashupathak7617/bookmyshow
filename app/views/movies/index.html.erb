@@ -41,15 +41,20 @@
   <div class="card-body">
     <div class="row row-cols-1 row-cols-md-4 g-4">
       <% @movies.each do |movie|%>
-        <% if movie.image.attached? %>
-            <div class="col">
-              <div class="card h-100 shadow p-3 mb-1 bg-body rounded">
-                <%= link_to image_tag(movie.image, width: 205, height: 210), movie_path(id: movie.id), class: "card-img-top rounded " %>
-                <div class="card-body me-3">
-                  <h6 class="card-title text-danger"><%= link_to movie.name,movie_path(id: movie.id), class:"text-danger" %></h6>
+        <% if  movie.shows.any? %>
+          <% if movie.image.attached? %>
+              <div class="col">
+                <div class="card h-100 shadow p-3 mb-1 bg-body rounded">
+                  <%= link_to image_tag(movie.image, width: 205, height: 210), movie_path(id: movie.id), class: "card-img-top rounded " %>
+
+                  <div class="card-body me-3">
+                    <h6 class="card-title text-danger">
+                      <%= link_to movie.name, movie_path(id: movie.id), class:"text-danger" %>
+                    </h6>
+                  </div>
                 </div>
               </div>
-            </div>
+          <% end %>
         <% end %>
       <% end %>
     </div>

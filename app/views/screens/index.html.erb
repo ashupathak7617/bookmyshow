@@ -9,7 +9,7 @@
         <div class="card-body ">
           <div class="container">
            <% @screen.each do |screen| %>
-             <h1 class="d-inline-flex text-center"><%= link_to screen.screen_name, seats_path(screen_id: screen.id), class:"btn btn-outline-success"%></h1>
+             <p class="d-inline-flex text-center"><%= link_to screen.screen_name , new_booking_path(screen_id: screen.id), class:"btn btn-outline-primary"%></p>
            <% end %>
           </div>
         </div>

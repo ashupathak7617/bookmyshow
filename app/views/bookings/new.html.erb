@@ -1,33 +1,33 @@
+
 <div class="container">
   <div class= "row">
     <div class="col-lg-8 mx-auto">
       <div class="card card border-primary mt-2">
         <div class="card-header text-center border-primary">
-          <h4>select seat</h4>
+          <h4>select seats</h4>
         </div>
         <div class="card-body ">
           <div class="container">
-          	<%= form_with model: @booking do |f| %>
-	            <div class="text-center">
+
+          	<%= form_with model: @booking  do |f| %>
+	            <div class="text-center row-cols-md-7">
 	            	<%= f.hidden_field :theater_id, value: @theater.id %>
 	            	<%= f.hidden_field :movie_id, value: @movie.id %>
 	            	<%= f.hidden_field :customer_id, :value =>current_customer.id %>
 	            	<%= f.hidden_field :show_id, value: @show.id %>
-	            	<% @theater.screens.each do |screen|%>
-                  <%#= f.hidden_field :screen_id, value: screen.id %>
-	                  <% screen.seats.each do | seat| %>
-
-	                    <% if seat.status == true %>
-	                   
-	                     <%= check_box_tag 'booking[seat_ids][]', seat.id, class: "d-inline-flex"  %>
-	                     <p class="d-inline p-2 bg-info text-white rounded rounded-5"><%= seat.seat_no %></p>
-	                    <% end %> 
-                    <% end %>
-	              <% end %>
+	            
+		            	<% @seats.each  do |seat| %>
+		            	   
+		                      <%= check_box_tag 'booking[seat_ids][]', seat.id,  class: "d-inline-flex text-white rounded rounded-5  select css_class", type:"checkbox", style: 'opacity: 0; position: absolute;'  %>
+		                       <label class="button_select d-inline p-2  text-dark rounded rounded-5  p-0 bg bg-transparent 
+		                       border border-color-success"><%= seat.seat_no %></label>
+		                    <% end %> 
+		            	
+	              
 	            </div>
 	            <div class="text-center mt-5">
-	            	<%= f.submit "Book Seat", class:"btn btn-outline-success"%>
-	            	<%= link_to "Cancle",shows_path(movie: @movie), class:"btn btn-outline-primary"%>
+	            	<%= f.submit "Book Seat", class:"btn btn-outline-success" %>
+	            	<%= link_to "Back",movie_shows_path(movie_id: @movie.id), class:"btn btn-outline-primary"%>
 	            </div>
             <% end %>
           </div>
@@ -36,6 +36,27 @@
     </div>
   </div>
 </div>
+<style type="text/css">
+	.button_select {
+		margin: 0 0px 0px ;
+		display: flex;
+    border-color: green;
+    border-color: red;
+   
 
+		&:hover,
+		&:focus,
+		&:active{
+			background-color: red;	
+		}
+</style>
 
-
+<style type="text/css">
+input.css_class
+{
+	background-color: transparent
+height: 31px;
+width: 40px;
+margin-top: 0;
+}
+</style> 

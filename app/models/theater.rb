@@ -4,6 +4,10 @@ class Theater < ApplicationRecord
 	has_many :shows
   has_many :movies, through: :shows
   has_many :tickets
+
+  validates :name, :location, presence: true
+  validates :name, :location, presence: true, on: :update
+
 	# validates_associated :screens
 
   def self.ransackable_attributes(auth_object = nil)

@@ -32,10 +32,14 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
    # root "home#index"
 
-  resources :movies
-  resources :tickets 
-  resources :shows
+  resources :movies do
+    resources :shows
+  end
+  
   resources :bookings
+  resources :tickets 
+  resources :screens
+  resources :seats
   
    root "movies#index"
 end

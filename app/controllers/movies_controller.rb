@@ -1,15 +1,14 @@
 class MoviesController < ApplicationController
+  before_action :movie, only: :show
   
   def index
-    if params[:movie].present?
-      @movies = Movie.where("name like ?", "%#{params[:movie]}%")
-    else
-      @movies = Movie.all
-    end
+    @movies = Movie.all
+    return unless params[:search].present?
+    
+    @movies = @movies.where("name ILIKE ?", "%#{params[:search]}%")
   end
 
   def show
-    @movie = Movie.find(params[:id])
     @theater = @movie.theaters
     @shows = @movie.shows
     # @screen = @theater.screens
