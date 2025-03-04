@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_02_26_123026) do
+ActiveRecord::Schema[7.2].define(version: 2025_03_03_123943) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -125,6 +125,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_02_26_123026) do
 
   create_table "shows", force: :cascade do |t|
     t.datetime "show_time"
+    t.datetime "end_time"
     t.bigint "movie_id", null: false
     t.bigint "theater_id", null: false
     t.bigint "screen_id", null: false
