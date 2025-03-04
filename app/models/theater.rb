@@ -7,7 +7,7 @@ class Theater < ApplicationRecord
 	# validates_associated :screens
 
   def self.ransackable_attributes(auth_object = nil)
-    ["created_at", "id", "location", "movies_id", "name", "updated_at"]
+    ["created_at", "id", "location", "movies_id", "name", "updated_at", "tickets_id_eq"]
   end
 
 	def self.ransackable_associations(auth_object = nil)

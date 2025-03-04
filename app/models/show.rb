@@ -5,7 +5,7 @@ class Show < ApplicationRecord
   has_many :tickets
 
   def self.ransackable_attributes(auth_object = nil)
-    ["created_at", "id", "movie_id", "screen_id", "show_time", "theater_id", "updated_at"]
+    ["created_at", "id", "movie_id", "screen_id", "show_time", "theater_id", "updated_at", "tickets_id_eq"]
   end
 
   def self.ransackable_associations(auth_object = nil)

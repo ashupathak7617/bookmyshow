@@ -11,7 +11,7 @@ class MoviesController < ApplicationController
   def show
     
     @movie = Movie.find(params[:id])
-    @theater = @movie.theaters
+    @theaters = @movie.theaters
     @shows = @movie.shows
     # @screen = @theater.screens
     # @show = @screen.shows
