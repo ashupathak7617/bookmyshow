@@ -1,10 +1,62 @@
-
-<% @movies.each do |movie|%>
-  <% if movie.image.attached? %>
-    <div class=" ">
-      <%=  image_tag  movie.image, size: "360x280", class: "border border-5 mb-2" %>
+<div id="carouselExampleDark" class="carousel carousel-dark slide mt-3">
+  <div class="carousel-indicators">
+    <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+    <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1" aria-label="Slide 2"></button>
+    <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="2" aria-label="Slide 3"></button>
+  </div>
+  <div class="carousel-inner">
+    <div class="carousel-item active" data-bs-interval="10000">
+      <%# <img src="..." class="d-block w-100" alt="..."> %>
+      <%= image_tag("img3.jpg", width: "1050", height: "350") %> 
+      
     </div>
-  <% end %>
-  <p> <%= link_to movie.name, movie_path(id: movie.id)%></p>
-  <p> <%=movie.release_date %></p>
-<% end %>
+    <div class="carousel-item" data-bs-interval="2000">
+      <%# <img src="..." class="d-block w-100" alt="..."> %>
+      <%= image_tag("img1.jpg", width: "1050", height: "350") %> 
+      <div class="carousel-caption d-none d-md-block">
+        <h5>Second slide label</h5>
+        <p>Some representative placeholder content for the second slide.</p>
+      </div>
+    </div>
+    <div class="carousel-item">
+      <%# <img src="..." class="d-block w-100" alt="..."> %>
+      <%= image_tag("img2.jpg", width: "1050", height: "350") %> 
+      <div class="carousel-caption d-none d-md-block">
+        <h5>Third slide label</h5>
+        <p>Some representative placeholder content for the third slide.</p>
+      </div>
+    </div>
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>
+<div class="card">
+  <p class="fs-2 mt-3 mb-3" >Recommended Movies</p>
+  <div class="card-body">
+    <div class="row row-cols-1 row-cols-md-4 g-4">
+      <% @movies.each do |movie|%>
+        <% if  movie.shows.any? %>
+          <% if movie.image.attached? %>
+              <div class="col">
+                <div class="card h-100 shadow p-3 mb-1 bg-body rounded">
+                  <%= link_to image_tag(movie.image, width: 205, height: 210), movie_path(id: movie.id), class: "card-img-top rounded " %>
+
+                  <div class="card-body me-3">
+                    <h6 class="card-title text-danger">
+                      <%= link_to movie.name, movie_path(id: movie.id), class:"text-danger" %>
+                    </h6>
+                  </div>
+                </div>
+              </div>
+          <% end %>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>

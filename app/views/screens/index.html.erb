@@ -1,0 +1,19 @@
+
+<div class="container">
+  <div class= "row">
+    <div class="col-lg-6 mx-auto">
+      <div class="card card border-primary mt-2">
+        <div class="card-header text-center">
+          <h4>select screen</h4>
+        </div>
+        <div class="card-body ">
+          <div class="container">
+           <% @screen.each do |screen| %>
+             <p class="d-inline-flex text-center"><%= link_to screen.screen_name , new_booking_path(screen_id: screen.id), class:"btn btn-outline-primary"%></p>
+           <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_02_19_130255) do
+ActiveRecord::Schema[7.2].define(version: 2025_03_03_123943) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -68,6 +68,24 @@ ActiveRecord::Schema[7.2].define(version: 2025_02_19_130255) do
     t.index ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true
   end
 
+  create_table "bookings", force: :cascade do |t|
+    t.bigint "movie_id", null: false
+    t.bigint "theater_id", null: false
+    t.bigint "customer_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "show_id", null: false
+    t.index ["customer_id"], name: "index_bookings_on_customer_id"
+    t.index ["movie_id"], name: "index_bookings_on_movie_id"
+    t.index ["show_id"], name: "index_bookings_on_show_id"
+    t.index ["theater_id"], name: "index_bookings_on_theater_id"
+  end
+
+  create_table "bookings_seats", id: false, force: :cascade do |t|
+    t.bigint "booking_id", null: false
+    t.bigint "seat_id", null: false
+  end
+
   create_table "customers", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -100,11 +118,14 @@ ActiveRecord::Schema[7.2].define(version: 2025_02_19_130255) do
     t.bigint "screen_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "status", default: true
+    t.integer "seat_create"
     t.index ["screen_id"], name: "index_seats_on_screen_id"
   end
 
   create_table "shows", force: :cascade do |t|
     t.datetime "show_time"
+    t.datetime "end_time"
     t.bigint "movie_id", null: false
     t.bigint "theater_id", null: false
     t.bigint "screen_id", null: false
@@ -143,6 +164,10 @@ ActiveRecord::Schema[7.2].define(version: 2025_02_19_130255) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "bookings", "customers"
+  add_foreign_key "bookings", "movies"
+  add_foreign_key "bookings", "shows"
+  add_foreign_key "bookings", "theaters"
   add_foreign_key "screens", "theaters"
   add_foreign_key "seats", "screens"
   add_foreign_key "shows", "movies"

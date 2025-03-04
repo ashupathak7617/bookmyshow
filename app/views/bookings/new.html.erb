@@ -1,0 +1,86 @@
+
+<div class="container">
+  <div class= "row">
+    <div class="col-lg-8 mx-auto">
+      <div class="card  screen-side">
+        <div class="card-header text-center border-primary">
+          <h4>select seats</h4>
+        </div>
+        <div class="card-body ">
+          <div class="container">
+          	<h5 style="height: 30px; width:90px;"class="btn btn-success" disabled>booked</h5>
+          	<%= form_with model: @booking  do |f| %>
+	            <div class="text-center row-cols-md-7">
+	            	<%= f.hidden_field :theater_id, value: @theater.id %>
+	            	<%= f.hidden_field :movie_id, value: @movie.id %>
+	            	<%= f.hidden_field :customer_id, :value =>current_customer.id %>
+
+	            	<%= f.hidden_field :show_id, value: @show.id %>
+	            	<% @seats.each  do |seat| %>
+		            	<%# <% if seat.status == true %>
+			            	<div class=" select d-inline-flex ">
+		                  <%= check_box_tag 'booking[seat_ids][]', seat.id,  class: "mt-2 d-inline-flex ", type:"checkbox", style: 'opacity: 0; position: absolute; height: 33px; width: 38px;', disabled: !seat.status  %>
+			                 
+			                 <label class="<%= seat.status ? 'bg- border border-3 border border-info ' : 'bg-success'%> button_size d-inline-flex  rounded rounded-5 mb-1 text-color-success button_select " style="padding: 5px; color: black; width: 38px;"><%= seat.seat_no %></label>
+			              </div> 
+		              <%# <% else %>
+		                 <%# <div class="select d-inline-flex">s %>
+			                 <%# <label class="disabled_button d-inline-flex  px-2 " style="padding: 10px;"><%= seat.seat_no %>
+			              <%# </div> %>
+		              <%# <% end %>   
+	              <% end %> 
+	            </div>
+	            <div class="text-center mt-5">
+	            	<%= f.submit "Book Seat", class:"btn btn-outline-success" %>
+	            	<%= link_to "Back",movie_shows_path(movie_id: @movie.id), class:"btn btn-outline-primary"%>
+	            </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%# <style type="text/css">
+	.btn-group{
+    .select{
+<%# 	    position:relative; %>
+	    <%# input:checked + label {
+	      background-color: green;
+	      &:hover,
+	      &:focus
+		  }  %> 
+		  <%# input{
+		      opacity: 0;
+		      position: absolute;
+		    }
+		   %>
+		  <%# .button_select{
+		    margin: 0 10px 10px 0;
+		    text-align-last: 20px;
+		    padding: 9px;
+		    display:flex;
+		       
+		    height: 74px;
+	      width: 32px;
+		    &:hover,
+		    &:focus
+		    
+		  } %>
+		
+<%# </style> %> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+

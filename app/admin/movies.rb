@@ -7,7 +7,7 @@ ActiveAdmin.register Movie do
   #
   # Uncomment all parameters which should be permitted for assignment
   #
-  permit_params :name, :release_date, :image, :theaters_id
+  permit_params :name, :release_date, :image
   config.batch_actions = false
   #
   # or
@@ -52,7 +52,7 @@ ActiveAdmin.register Movie do
       row :name
       row :release_date
       row :image do |ad|
-        image_tag url_for(ad.image)
+        image_tag url_for(ad.image),size: "200x200"
       end
     end
   end

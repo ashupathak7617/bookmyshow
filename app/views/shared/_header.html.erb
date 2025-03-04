@@ -1,18 +1,22 @@
-<nav class="navbar navbar-light" style="background-color: #e3f2fd;">
+<nav class="navbar navbar-light bg bg-info">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">BookMyShow</a>
-    <a class="me-auto navbar-brand"> Movies</a>
-    
+    <a class="navbar-brand" href="/">BookMyShow</a>
+    <%= form_with url: "/movies", method: :get , class:"d-inline-flex me-auto" do |form| %>
+      <%= form.text_field :search, value: params[:search], placeholder:"search movies", class: "form-control me-2 d-inline-flex"%>
+      <%= form.submit "Search", type: "hidden", class:"btn btn-outline-success" %>
+    <% end %>
+
     <% if customer_signed_in? %>
-      <a class="nav-link active text-dark me-auto" aria-current="page" href="#"><i class="fa fa-user-circle" aria-hidden="true"></i> <%= current_customer.email %></a>
+      <a class="nav-link active text-default ms-20  " aria-current="page" href="#">
+        <i class="fa fa-user-circle" aria-hidden="true"></i> 
+
       <h5 class="d-flex ms-auto order-5"> <%= link_to "logout",destroy_customer_session_path, data: { turbo_method: :delete },class:"dropdown-item"  %>
       </h5>
+      
+    <% else %>
+      <h5 class="ms-auto"><%= link_to "Signin", new_customer_session_path, class:"dropdown-item" %></h5>
     <% end %>
     
-    <%= form_with url: "/movies", method: :get , class:"d-inline-flex
-" do |form| %>
-      <%= form.text_field :movie, class: "form-control me-2 d-inline-flex" %>
-      <%= form.submit "Search", class:"btn btn-outline-success" %>
-    <% end %>
+    
   </div>
 </nav>
