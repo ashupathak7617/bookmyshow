@@ -1,0 +1,31 @@
+<h1>Welcome <%= @customer.email %></h1>
+  <h3>
+    I Feel Very Happy To Tell You That I Have Found A New Movie Shows For You....! <br>
+  </h3> 
+  
+  <table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Shows</th>
+      <th scope="col">Movies</th>
+      <th scope="col">Theaters</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @shows.each do |show| %>
+    <tr>
+      <td class="text-center w-50"><%= show.show_time.strftime("%l:%M%p") %></td>
+      <td class=" text-center w-50"><%= show.movie.name %></td>
+      <td class="text-center"><%= show.theater %></td>
+    </tr>
+    <tr>
+    <% end %>   
+  </tbody>
+</table>
+
+  <p> click <%= link_to "here", "http://localhost:3000",style:"color: blue;" %> to book ticket</p>
+   
+     
+    
+   
+<p>Thanks for joining and have a great day!</p>
