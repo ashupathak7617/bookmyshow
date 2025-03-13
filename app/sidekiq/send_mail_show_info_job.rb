@@ -8,7 +8,6 @@ class SendMailShowInfoJob
     cust = Customer.all
     cust.each do |customer|
      ShowsMailer.shows_detals(customer, today_shows).deliver
-
     end
   end
 end
