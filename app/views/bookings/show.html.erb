@@ -1,5 +1,3 @@
-
-
 <div class="container">
   <div class= "row">
     <div class="col-lg-6 mx-auto">
@@ -11,8 +9,9 @@
           <div class="container">
             <div>
 							<p><strong>Customer Name : </strong><%= @booking.customer.email%></p>
-            	<p><strong> Movie : </strong><%= @booking.movie.name %></p>
-							<p><strong> Theater : </strong><%= @booking.theater %></p>
+            	<p><strong> Movie : </strong><%= @show.movie.name %></p>
+							<p><strong> Theater : </strong><%= @show.theater.name %></p>
+              <p><strong> Screen : </strong><%= @show.screen %></p>
 							<p><strong> Seats : </strong><%=@booking.booking_details %></p>
 							<p><strong> Booking Status : </strong><%="booked"%></p>
             </div>

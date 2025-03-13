@@ -67,5 +67,7 @@ gem 'sassc-rails'
 gem 'arctic_admin'
 # gem 'arctic_admin'
 gem 'activeadmin_addons'
-gem 'sidekiq'
-gem 'sidekiq-cron'
+
+gem "sidekiq"
+gem 'dotenv'
+gem 'sidekiq-cron' 

@@ -20,20 +20,13 @@ ActiveAdmin.register Screen do
     id_column
     column :screen_name
     column :theater_id
-    
     actions
   end
-  # form do |f|
-  #   f.inputs do
-  #     f.input :theater
-  #     f.input :, required: false
-  #     f.input :email
-  #   end
-  #   f.actions
-  # end
 
-  
-
-
-  
+  show do
+    attributes_table do
+      row :screen_name
+      row :theater
+    end
+  end
 end

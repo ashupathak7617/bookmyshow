@@ -15,7 +15,6 @@ ActiveAdmin.register Seat do
   #   permitted << :other if params[:action] == 'create' && current_user.admin?
   #   permitted
   # end
-
   form do |f|
     f.inputs do
       f.input :screen
@@ -23,7 +22,6 @@ ActiveAdmin.register Seat do
     end
     f.actions
   end
-
 
   controller do
      def create 
@@ -33,5 +31,12 @@ ActiveAdmin.register Seat do
       redirect_to "/admin/seats"
      end
   end
-  
+
+  show do
+    attributes_table do
+      row :screen
+      row :seat_no
+      row :status
+    end
+  end
 end

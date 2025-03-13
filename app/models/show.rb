@@ -5,13 +5,11 @@ class Show < ApplicationRecord
   has_many :bookings
 
   validates :show_time , uniqueness: {scope: :screen_id}
-
   validate :check_show_time
-  
-  def check_show_time
-    
-    other_show = Show.where(screen_id: screen_id).where.not(id: id).where("show_time < ? AND end_time > ?", end_time, show_time).exists?
 
+  def check_show_time
+    other_show = Show.where(screen_id: screen_id).where.not(id: id).where("show_time < ? AND end_time > ?", end_time, show_time).exists?
+    
     if other_show
       errors.add(:base, "this screen is already in used for this time")
     end
