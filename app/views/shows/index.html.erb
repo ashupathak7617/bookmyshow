@@ -6,28 +6,26 @@
           <h5 class="font-monospace"><%= @movie.name %></h5>
           <div class="card-body">
             <div class="">
-              <% if @movie.theaters.present? %>
-                <% @theaters.each  do |theater|%>
-                  <div class="card col-lg-12 shadow p-1 mb-2 bg-body-tertiary rounded">
-                    <div class="card-body d-inline-flex">
-                      <div class="w-50 ">
-                        <p class=" px-10">
-                          <%= theater.name %> - <%=theater.location%>
-                        </p>
-                      </div>
-                      <div class="w-75 margin- 10">
-                        <% theater.shows.where(movie_id: @movie.id).each do |show| %>
-                          <%= link_to show.show_time.strftime("%l:%M%p"), new_booking_path( movie_id: @movie.id, theater_id: theater.id, show_id: show.id,screen_id:show.screen_id),class:"btn btn-outline-success d-inline-flex" %>
-                        <% end %>
-                      </div>
+              <% @theaters.each  do |theater|%>
+                <div class="card col-lg-12 shadow p-1 mb-2 bg-body-tertiary rounded">
+                  <div class="card-body d-inline-flex">
+                    <div class="w-50 ">
+                      <p class=" px-10">
+                        <%= theater.name %> - <%=theater.location%>
+                      </p>
+                    </div>
+                    <div class="w-75 margin- 10 ">
+                      <% theater.shows.where(movie_id: @movie.id).each do |show| %>
+                        <%# <%= link_to show.show_time.strftime("%l:%M%p"), new_booking_path(booking: { movie_id: @movie.id, theater_id: theater.id, show_id: show.id,screen_id:show.screen_id }),class:"btn btn-outline-success d-inline-flex tooltiptext "
+                         %>
+                         <%= link_to show.show_time.strftime("%l:%M%p"), new_booking_path(booking: { show_id: show.id }),class:"btn btn-outline-success d-inline-flex tooltiptext " %> 
+                      <% end %>
                     </div>
                   </div>
-                <% end %>
-              <% else %>
-                <p class="lead">no theaters are available for the movie</p>
+                </div>
               <% end %>
               <div class="mt-4">
-               <%=link_to "Back", movie_path(id:@movie.id), class:"btn btn-outline-primary" %>
+                <%=link_to "Back", movie_path(id:@movie.id), class:"btn btn-outline-primary" %> 
              </div> 
             </div>
           </div>
@@ -36,3 +34,14 @@
     </div>
   </div>
 </div>
+
+
+
+
+
+
+
+
+
+
+

@@ -4,7 +4,4 @@ class ShowsController < ApplicationController
   def index
     @theaters = @movie.theaters.distinct
   end
-
-  def show
-  end
 end

@@ -17,17 +17,7 @@ ActiveAdmin.register Movie do
   #   permitted << :other if params[:action] == 'create' && current_user.admin?
   #   permitted
   # end
-   
-  # form do |f|
-  #   f.inputs do
-  #     f.input :id, as: :hidden unless f.object.new_record?  # Required
-  #     f.input :name
-  #     f.input :release_date
-  #     f.input :theaters, collection: Theater.all
-  #     # ... other fields
-  #   end
-  #   f.actions
-  # end
+  
   index do
     selectable_column
     id_column
@@ -37,11 +27,10 @@ ActiveAdmin.register Movie do
     actions
   end
 
-
   form do |f|
     f.inputs do
       f.input :name
-      f.input :release_date
+      f.input :release_date, as: :datetime_picker
       f.input :image, as: :file
     end
     f.actions

@@ -16,35 +16,6 @@ ActiveAdmin.register Show do
   #   permitted
   # end
 
-    # form do |f|
-    #   f.inputs do
-    #     f.input :movie
-    #     f.input :screen, as: :nested_select,
-    #      level_1: { 
-    #       attribute: :theater,
-    #       collection: Theater.all
-    #     },
-    #      level_2: { 
-    #       attribute: :screen,
-    #       collection: Screen.all
-    #     }
-    #     # f.input :show_time, as: :date_time_picker
-    #   end
-    #   f.actions
-    # end
-
-  # form do |f|
-  #   f.inputs do
-  #     f.input :movie
-  #   end
-  #   f.inputs Theater do
-  #     f.has_many :screens, heading: false, allow_destroy: true do |a|
-  #       a.input :screen_name
-  #     end
-  #   end
-  #   f.actions
-  # end
-
   form do |f|
     f.inputs do
       f.semantic_errors
@@ -57,14 +28,13 @@ ActiveAdmin.register Show do
     f.actions
   end
 
-
-  # controller do
-  #    def create 
-  #      screen_id = params[:show][:screen_id]
-  #      start_time = params[:show][:show_time]
-  #      end_time = params[:show][:end_time]
-  #    end
-  # end
-
-
+  show do
+    attributes_table do
+      row :movie
+      row :theater
+      row :screen
+      row :show_time
+      row :end_time
+    end
+  end
 end 

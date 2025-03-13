@@ -118,7 +118,7 @@ ActiveAdmin.setup do |config|
   # This setting changes the path where the link points to. If it's
   # a string, the strings is used as the path. If it's a Symbol, we
   # will call the method to return the path.
-  #
+
   # Default:
   config.logout_link_path = :destroy_admin_user_session_path
 
@@ -349,8 +349,4 @@ ActiveAdmin.setup do |config|
   # You can switch to using Webpacker here.
   #
   # config.use_webpacker = true
-
-  meta_tags_options = { viewport: 'width=device-width, initial-scale=1' }
-  config.meta_tags = meta_tags_options
-  config.meta_tags_for_logged_out_pages = meta_tags_options
 end
