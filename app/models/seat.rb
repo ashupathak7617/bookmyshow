@@ -1,6 +1,5 @@
 class Seat < ApplicationRecord
   belongs_to :screen
-  has_many :tickets
   has_and_belongs_to_many :bookings
   validates :seat_no, presence: true
   validates :screen, presence: true

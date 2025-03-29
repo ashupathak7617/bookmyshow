@@ -3,8 +3,7 @@ class Theater < ApplicationRecord
 	has_many :screens
 	has_many :shows
   has_many :movies, through: :shows
-  has_many :tickets
-
+  
   validates :name, :location, presence: true
   validates :name, :location, presence: true, on: :update
 
