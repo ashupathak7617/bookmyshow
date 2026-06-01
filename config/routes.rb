@@ -31,6 +31,9 @@ Rails.application.routes.draw do
   
   resources :bookings
   resources :seats
+  get  '/payment/success', to: 'bookings#success', as: :payment_success
+  get  '/payment/cancel',  to: 'bookings#cancel',  as: :payment_cancel
+  post '/webhooks/stripe', to: 'webhooks#stripe'
 
   
 end

@@ -4,5 +4,5 @@ development:
   database: bookmyshow
   pool: 5
   host: localhost
-  username: bookmyshow  
+  username: rails
   password: rails

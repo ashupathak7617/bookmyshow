@@ -1,8 +1,8 @@
 class BookingsController < ApplicationController
-  
+
   before_action :authenticate_customer!
   before_action :find_by_params, only: [:new, :create]
-               
+
   def index
     @bookings = Booking.where(customer_id: current_customer.id)
   end
@@ -13,30 +13,63 @@ class BookingsController < ApplicationController
 
   def create
     @booking = Booking.new(params_permit)
+
     if @booking.save
-      redirect_to booking_path(id: @booking.id) ,notice: "Your Ticket Booked successfully "
+      # Stripe Checkout Session create karo
+      session = Stripe::Checkout::Session.create({
+        mode: 'payment',
+        line_items: [{
+          quantity: 1,
+          price_data: {
+            currency: 'inr',
+            unit_amount: @booking.seats.sum(:price) * 100,
+            product_data: {
+              name: @movie.name,
+              description: "Seats: #{@booking.seats.map(&:seat_no).join(', ')}"
+            }
+          }
+        }],
+        metadata: { booking_id: @booking.id },
+        success_url: payment_success_url(booking_id: @booking.id),
+        cancel_url:  payment_cancel_url(booking_id:  @booking.id)
+      })
+
+      @booking.update!(stripe_session_id: session.id, status: 'pending')
+      redirect_to session.url, allow_other_host: true
+
     else
-      flash[:notice] = @booking.errors.full_messages.first 
-      redirect_to new_booking_path(booking: {show_id: @show.id})
+      flash[:notice] = @booking.errors.full_messages.first
+      redirect_to new_booking_path(booking: { show_id: @show.id })
     end
   end
 
   def show
-    @booking  = Booking.find(params[:id])
-    @show = @booking.show
+    @booking = Booking.find(params[:id])
+    @show    = @booking.show
   end
-  
+
+  def success
+    @booking = Booking.find(params[:booking_id])
+    @show    = @booking.show
+    @movie   = @show.movie
+  end
+
+  def cancel
+    @booking = Booking.find(params[:booking_id])
+    @show    = @booking.show
+    @movie   = @show.movie
+  end
+
   private
 
   def find_by_params
-    
-    @show = Show.find_by(id: params[:booking][:show_id])
-    @movie = @show.movie
-    @screen  = @show.screen
-    @seats = @screen.seats
+    @show   = Show.find_by(id: params[:booking][:show_id])
+    @movie  = @show.movie
+    @screen = @show.screen
+    @seats  = @screen.seats
   end
 
   def params_permit
-  params.require(:booking).permit(:show_id, :customer_id, :screen_id, seat_ids: [])
+    params.require(:booking).permit(:show_id, :customer_id, :screen_id, seat_ids: [])
   end
 end

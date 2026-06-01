@@ -1,59 +1,87 @@
 <div class="container">
-	<div class= "row">
-		<div class="col-lg-8 mx-auto">
-			<div class="card  screen-side mt-2 border-info">
-				<div class="card-header text-center border-info">
-					<h4>select seats</h4>
-				</div>
-				<div class="card-body ">
-					<div class="container">
-						<div class="mb-3 d-inline-flex">
-							<h5 class="btn btn-primary p-10 h-5 w-20"disabled disabled style="height: 25px; width: 20px;"></h5> &nbsp;Available  &nbsp;
-							<h5 class="btn btn-success d-inline-flex" style="height: 25px; width: 20px;"></h5>&nbsp;Booked &nbsp;
-							<h5 class="btn btn- d-inline-flex" style="height: 25px; width: 20px; background: deeppink;"></h5>&nbsp;selected
-						</div>
-						<%= form_with model: @booking  do |f| %>
-							<div class="text-center row-cols-md-7">
-								<%#= f.hidden_field :theater_id, value: @theater.id %>
-								<%#= f.hidden_field :movie_id, value: @movie.id %>
-								<%= f.hidden_field :customer_id, :value =>current_customer.id %>
-								<%= f.hidden_field :show_id, value: @show.id %>
-								<% @seats.order(created_at: :asc).each  do |seat| %>
-								<div class=" select d-inline-flex ">
-								  <%= check_box_tag 'booking[seat_ids][]', seat.id,  class: "mt-2 d-inline-flex ", type:"checkbox", style: 'opacity: 0; position: absolute; height: 33px; width: 38px;', disabled: !seat.status  %>
+  <div class="row">
+    <div class="col-lg-8 mx-auto">
+      <div class="card screen-side mt-2 border-info">
+        <div class="card-header text-center border-info">
+          <h4>Select Seats</h4>
+        </div>
+        <div class="card-body">
+          <div class="container">
 
-									<label for="myCheck" class="<%= seat.status ? 'bg- border border-3 border border-info ' : 'bg-success bg- border border-3 border border-info'%> button_size d-inline-flex  rounded rounded-5 mb-1 text-color-success button_select " style="padding: 5px; color: black; width: 38px;"><%= seat.seat_no %></label>
-								</div> 
-								<% end %> 
-							</div>
-							<div class="text-center mt-5">
-								<%= f.submit "Book Seat", id:"text", class:"btn btn-outline-success "  %> 
-							  <%= link_to "Back",movie_shows_path(movie_id: @movie.id), class:"btn btn-outline-primary"%> 
-							</div>
-						<% end %>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+            <div class="mb-3 d-inline-flex">
+              <h5 class="btn btn-primary" disabled style="height: 25px; width: 20px;"></h5>&nbsp;Available&nbsp;
+              <h5 class="btn btn-success d-inline-flex" style="height: 25px; width: 20px;"></h5>&nbsp;Booked&nbsp;
+              <h5 class="btn d-inline-flex" style="height: 25px; width: 20px; background: deeppink;"></h5>&nbsp;Selected
+            </div>
+
+            <%= form_with model: @booking, data: { turbo: false } do |f| %>
+              <div class="text-center row-cols-md-7">
+                <%= f.hidden_field :customer_id, value: current_customer.id %>
+                <%= f.hidden_field :show_id, value: @show.id %>
+
+                <% @seats.order(created_at: :asc).each do |seat| %>
+                  <div class="select d-inline-flex position-relative">
+                    <%= check_box_tag 'booking[seat_ids][]', seat.id,
+                        class: "mt-2 d-inline-flex seat-checkbox",
+                        type: "checkbox",
+                        data: { price: seat.price },
+                        style: 'opacity: 0; position: absolute; height: 33px; width: 38px; z-index: 1;',
+                        disabled: !seat.status %>
+
+                    <label for="myCheck"
+                      class="<%= seat.status ? 'border border-3 border-info' : 'bg-success border border-3 border-info' %> button_size d-inline-flex rounded rounded-5 mb-1 button_select seat-label position-relative"
+                      style="padding: 5px; color: black; width: 38px; cursor: pointer;">
+                      <%= seat.seat_no %>
+                      <span class="seat-price-tooltip">₹<%= seat.price %></span>
+                    </label>
+                  </div>
+                <% end %>
+              </div>
+
+              <div class="text-center mt-4">
+                <div id="total-box" class="d-inline-block border border-info rounded px-4 py-2 mb-3" style="display: none !important;">
+                  <span class="text-muted">Seats:</span>
+                  <strong id="selected-seats-text"></strong>
+                  &nbsp;|&nbsp;
+                  <span class="text-muted">Total:</span>
+                  <strong class="text-success" id="total-amount">₹0</strong>
+                </div>
+              </div>
+
+              <div class="text-center mt-2">
+                <%= f.submit "Book Seat", id: "text", class: "btn btn-outline-success" %>
+                <%= link_to "Back", movie_shows_path(movie_id: @movie.id), class: "btn btn-outline-primary" %>
+              </div>
+            <% end %>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
+<script>
+  document.querySelectorAll('.seat-checkbox').forEach(function(cb) {
+    cb.addEventListener('change', function() {
+      var checked = document.querySelectorAll('.seat-checkbox:checked');
+      var total   = 0;
+      var seats   = [];
 
+      checked.forEach(function(c) {
+        total += parseInt(c.dataset.price || 0);
+        var label = c.nextElementSibling;
+        seats.push(label.textContent.trim().split('₹')[0].trim());
+      });
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+      var box = document.getElementById('total-box');
+      if (checked.length > 0) {
+        box.style.cssText = 'display: inline-block !important;';
+        document.getElementById('selected-seats-text').textContent = seats.join(', ');
+        document.getElementById('total-amount').textContent = '₹' + total;
+      } else {
+        box.style.cssText = 'display: none !important;';
+      }
+    });
+  });
+</script>

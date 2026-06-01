@@ -25,5 +25,7 @@ module BookMyShowApp
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
     config.active_job.queue_adapter = :sidekiq
+    config.hosts << "fa0ee3b25889.ngrok-free.app"
+    config.hosts << "fa0ee3b25889.ngrok-free.app"
   end
 end

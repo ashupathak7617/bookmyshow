@@ -1,0 +1,26 @@
+<div class="container">
+  <div class="row">
+    <div class="col-lg-6 mx-auto mt-5">
+      <div class="card border-success">
+        <div class="card-header text-center bg-success text-white">
+          <h4>Booking Confirmed!</h4>
+        </div>
+        <div class="card-body">
+          <div class="card mb-2">
+            <div class="card-body border border-success">
+              <p><strong>Booking ID:</strong> #<%= @booking.id %></p>
+              <p><strong>Movie:</strong> <%= @movie.name %></p>
+              <p><strong>Seats:</strong> <%= @booking.seats.map(&:seat_no).join(', ') %></p>
+              <p><strong>Total Paid:</strong> ₹<%= @booking.seats.sum(:price) %></p>
+              <p><strong>Status:</strong> <span class="text-success">Confirmed</span></p>
+            </div>
+          </div>
+          <div class="text-center mt-3">
+            <%= link_to "My Bookings", bookings_path, class: "btn btn-outline-success" %>
+            <%= link_to "Home", root_path, class: "btn btn-outline-primary" %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

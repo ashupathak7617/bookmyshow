@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_03_10_052426) do
+ActiveRecord::Schema[7.2].define(version: 2026_05_31_111608) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -73,6 +73,8 @@ ActiveRecord::Schema[7.2].define(version: 2025_03_10_052426) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "show_id", null: false
+    t.string "stripe_session_id"
+    t.string "status"
     t.index ["customer_id"], name: "index_bookings_on_customer_id"
     t.index ["show_id"], name: "index_bookings_on_show_id"
   end
@@ -116,6 +118,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_03_10_052426) do
     t.datetime "updated_at", null: false
     t.boolean "status", default: true
     t.integer "seat_create"
+    t.integer "price"
     t.index ["screen_id"], name: "index_seats_on_screen_id"
   end
 
