@@ -61,7 +61,7 @@ group :test do
 end
 
 gem "devise" 
-gem "byebug", "~> 11.1"
+gem "byebug", "~> 12.0"
 gem 'activeadmin'
 gem 'sassc-rails'
 gem 'arctic_admin'
