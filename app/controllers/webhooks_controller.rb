@@ -6,7 +6,7 @@ class WebhooksController < ApplicationController
     sig_header = request.env['HTTP_STRIPE_SIGNATURE']
 
     event = Stripe::Webhook.construct_event(
-      payload, sig_header, "whsec_54b8144b71fed732aafc35513d90642e1e3c49589dcee349d498370a815b18c1"
+      payload, sig_header, ENV['STRIPE_WEBHOOK_SECRET']
     )
 
     if event.type == 'checkout.session.completed'
