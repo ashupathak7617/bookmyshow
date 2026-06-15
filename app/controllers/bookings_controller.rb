@@ -27,8 +27,8 @@ class BookingsController < ApplicationController
           }
         }],
         metadata: { booking_id: @booking.id },
-        success_url: "http://localhost:5173/payment/success?booking_id=#{@booking.id}",
-        cancel_url:  "http://localhost:5173/payment/cancel?booking_id=#{@booking.id}"
+        success_url: "https://bookmyshow-frontend-h2z6.onrender.com/payment/success?booking_id=#{@booking.id}",
+        cancel_url:  "https://bookmyshow-frontend-h2z6.onrender.com/payment/cancel?booking_id=#{@booking.id}"
       })
       @booking.update!(stripe_session_id: session.id, status: 'pending')
 
