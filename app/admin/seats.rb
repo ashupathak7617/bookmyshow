@@ -5,7 +5,7 @@ ActiveAdmin.register Seat do
   #
   # Uncomment all parameters which should be permitted for assignment
   #
-   permit_params :seat_no, :screen_id, :create_seat,:status
+   permit_params :seat_no, :screen_id, :create_seat, :status, :price
    config.batch_actions = false
   #
   # or
@@ -19,6 +19,7 @@ ActiveAdmin.register Seat do
     f.inputs do
       f.input :screen
       f.input :seat_no, placeholder:"Enter number of seats you want to create"
+      f.input :price
     end
     f.actions
   end
@@ -37,6 +38,7 @@ ActiveAdmin.register Seat do
       row :screen
       row :seat_no
       row :status
+      row :price
     end
   end
 end

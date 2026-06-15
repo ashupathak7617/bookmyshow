@@ -26,11 +26,16 @@ Rails.application.routes.draw do
   get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
 
   resources :movies do
-    resources :shows
+    resources :shows do
+    member do
+      get :seats
+    end
+  end
   end
   
   resources :bookings
-  resources :seats
+  get "/current_customer", to: "customers#current"
+  # resources :seats
   get  '/payment/success', to: 'bookings#success', as: :payment_success
   get  '/payment/cancel',  to: 'bookings#cancel',  as: :payment_cancel
   post '/webhooks/stripe', to: 'webhooks#stripe'

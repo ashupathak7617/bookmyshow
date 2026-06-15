@@ -1,21 +1,18 @@
 class BookingsController < ApplicationController
-
   before_action :authenticate_customer!
-  before_action :find_by_params, only: [:new, :create]
+  skip_before_action :verify_authenticity_token
 
   def index
-    @bookings = Booking.where(customer_id: current_customer.id)
-  end
-
-  def new
-    @booking = Booking.new
+    bookings = Booking.where(customer_id: current_customer.id)
+    render json: bookings, include: {show: {include: :movie}, seats: {}}
   end
 
   def create
-    @booking = Booking.new(params_permit)
+    @show   = Show.find_by(id: params[:booking][:show_id])
+    @movie  = @show.movie
+    @booking = Booking.new(params_permit.merge(customer_id: current_customer.id))
 
     if @booking.save
-      # Stripe Checkout Session create karo
       session = Stripe::Checkout::Session.create({
         mode: 'payment',
         line_items: [{
@@ -30,44 +27,33 @@ class BookingsController < ApplicationController
           }
         }],
         metadata: { booking_id: @booking.id },
-        success_url: payment_success_url(booking_id: @booking.id),
-        cancel_url:  payment_cancel_url(booking_id:  @booking.id)
+        success_url: "http://localhost:5173/payment/success?booking_id=#{@booking.id}",
+        cancel_url:  "http://localhost:5173/payment/cancel?booking_id=#{@booking.id}"
       })
-
       @booking.update!(stripe_session_id: session.id, status: 'pending')
-      redirect_to session.url, allow_other_host: true
 
+      render json: { stripe_url: session.url }
     else
-      flash[:notice] = @booking.errors.full_messages.first
-      redirect_to new_booking_path(booking: { show_id: @show.id })
+      render json: { error: @booking.errors.full_messages.first }, status: :unprocessable_entity
     end
   end
 
   def show
-    @booking = Booking.find(params[:id])
-    @show    = @booking.show
+    booking = Booking.find(params[:id])
+    render json: booking, include: [:show, :seats]
   end
 
   def success
-    @booking = Booking.find(params[:booking_id])
-    @show    = @booking.show
-    @movie   = @show.movie
+    booking = Booking.find(params[:booking_id])
+    render json: { booking: booking, show: booking.show, movie: booking.show.movie }
   end
 
   def cancel
-    @booking = Booking.find(params[:booking_id])
-    @show    = @booking.show
-    @movie   = @show.movie
+    booking = Booking.find(params[:booking_id])
+    render json: { booking: booking, show: booking.show, movie: booking.show.movie }
   end
 
   private
-
-  def find_by_params
-    @show   = Show.find_by(id: params[:booking][:show_id])
-    @movie  = @show.movie
-    @screen = @show.screen
-    @seats  = @screen.seats
-  end
 
   def params_permit
     params.require(:booking).permit(:show_id, :customer_id, :screen_id, seat_ids: [])

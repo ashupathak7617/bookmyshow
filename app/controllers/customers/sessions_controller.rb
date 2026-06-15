@@ -1,27 +1,40 @@
 # frozen_string_literal: true
 
 class Customers::SessionsController < Devise::SessionsController
-  # before_action :configure_sign_in_params, only: [:create]
+  skip_before_action :verify_authenticity_token
 
-  # GET /resource/sign_in
-  # def new
-  #   super
-  # end
+  before_action do
+    Rails.logger.info "CURRENT CUSTOMER => #{current_customer.inspect}"
+  end
 
-  # POST /resource/sign_in
-  # def create
-  #   super
-  # end
+  def create
+    customer = Customer.find_by(
+      email: params[:customer][:email]
+    )
 
-  # DELETE /resource/sign_out
-  # def destroy
-  #   super
-  # end
+    if customer&.valid_password?(
+      params[:customer][:password]
+    )
+      sign_in(customer)
 
-  # protected
+      render json: {
+        customer: {
+          id: customer.id,
+          email: customer.email
+        }
+      }
+    else
+      render json: {
+        error: "Invalid email or password"
+      }, status: :unauthorized
+    end
+  end
 
-  # If you have extra params to permit, append them to the sanitizer.
-  # def configure_sign_in_params
-  #   devise_parameter_sanitizer.permit(:sign_in, keys: [:attribute])
-  # end
+  def destroy
+    sign_out(current_customer)
+    cookies.delete(:auth_token)
+    render json: {
+      message: "Logged out successfully"
+    }
+  end
 end

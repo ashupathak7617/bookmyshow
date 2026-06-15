@@ -3,7 +3,33 @@
 class Customers::RegistrationsController < Devise::RegistrationsController
   # before_action :configure_sign_up_params, only: [:create]
   # before_action :configure_account_update_params, only: [:update]
+  def create
+    @customer = Customer.new(sign_up_params)
 
+    if @customer.save
+      sign_in(@customer)
+      render json: {
+        customer: {
+          id: @customer.id,
+          email: @customer.email
+        }
+      }, status: :created
+    else
+      render json: {
+        error: @customer.errors.full_messages.first
+      }, status: :unprocessable_entity
+    end
+  end
+
+  private
+
+  def sign_up_params
+    params.require(:customer).permit(
+      :email,
+      :password,
+      :password_confirmation
+    )
+  end
   # GET /resource/sign_up
   # def new
   #   super

@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+</head>
+<body style="margin:0;padding:0;background:#1a1a2e;font-family:Arial,sans-serif;">
+
+  <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#1a1a2e;padding:32px 16px;">
+    <tr>
+      <td align="center">
+        <table width="600" cellpadding="0" cellspacing="0" border="0" style="max-width:600px;width:100%;">
+
+          <!-- HEADER -->
+          <tr>
+            <td style="background:#cc0000;padding:36px 40px;text-align:center;border-radius:8px 8px 0 0;">
+              <div style="color:white;font-size:28px;font-weight:700;letter-spacing:1px;">BookMyShow</div>
+              <div style="color:rgba(255,255,255,0.7);font-size:12px;letter-spacing:3px;text-transform:uppercase;margin-top:6px;">Premium Entertainment</div>
+            </td>
+          </tr>
+
+          <!-- SUCCESS STRIP -->
+          <tr>
+            <td style="background:#2e7d32;padding:14px 40px;text-align:center;">
+              <span style="color:white;font-size:14px;letter-spacing:0.5px;">✦ &nbsp; Booking Confirmed — Your seats are reserved &nbsp; ✦</span>
+            </td>
+          </tr>
+
+          <!-- BODY -->
+          <tr>
+            <td style="background:#ffffff;padding:40px;">
+
+              <!-- Greeting -->
+              <p style="font-size:15px;color:#333;line-height:1.8;margin:0 0 32px;">
+                Dear <strong style="color:#cc0000;"><%= @customer.email.split("@").first.capitalize %></strong>,<br/><br/>
+                Thank you for choosing BookMyShow. Your payment has been successfully processed and your seats have been confirmed. We look forward to giving you an exceptional entertainment experience.
+              </p>
+
+              <!-- TICKET -->
+              <table width="100%" cellpadding="0" cellspacing="0" border="0" style="border:1px solid #e8e8e8;border-radius:8px;overflow:hidden;margin-bottom:28px;">
+
+                <!-- Ticket Header -->
+                <tr>
+                  <td style="background:#1a1a2e;padding:24px 28px;">
+                    <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                      <tr>
+                        <td>
+                          <div style="color:white;font-size:20px;font-weight:700;margin-bottom:4px;"><%= @movie.name %></div>
+                          <div style="color:rgba(255,255,255,0.5);font-size:12px;">REF: BMS-<%= Date.today.year %>-<%= @booking.id.to_s.rjust(4,'0') %></div>
+                        </td>
+                        <td align="right" valign="top">
+                          <span style="background:rgba(46,125,50,0.3);border:1px solid #2e7d32;color:#66bb6a;padding:5px 14px;border-radius:20px;font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;">✓ Confirmed</span>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+
+                <!-- Deco Line -->
+                <tr>
+                  <td style="background:#cc0000;height:3px;font-size:0;line-height:0;">&nbsp;</td>
+                </tr>
+
+                <!-- Info Grid -->
+                <tr>
+                  <td style="background:#fafafa;padding:24px 28px;">
+                    <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                      <tr>
+                        <td width="50%" style="padding-bottom:20px;vertical-align:top;">
+                          <div style="font-size:10px;color:#aaa;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:6px;">Date</div>
+                          <div style="font-size:14px;color:#222;font-weight:700;"><%= @show.show_time.strftime("%d %b %Y") %></div>
+                        </td>
+                        <td width="50%" style="padding-bottom:20px;vertical-align:top;">
+                          <div style="font-size:10px;color:#aaa;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:6px;">Show Time</div>
+                          <div style="font-size:14px;color:#cc0000;font-weight:700;"><%= @show.show_time.strftime("%I:%M %p") %></div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td width="50%" style="vertical-align:top;">
+                          <div style="font-size:10px;color:#aaa;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:6px;">Booking ID</div>
+                          <div style="font-size:14px;color:#222;font-weight:700;">#<%= @booking.id %></div>
+                        </td>
+                        <td width="50%" style="vertical-align:top;">
+                          <div style="font-size:10px;color:#aaa;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:6px;">Number of Seats</div>
+                          <div style="font-size:14px;color:#222;font-weight:700;"><%= @seats.count %> Seats</div>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+
+                <!-- Seats -->
+                <tr>
+                  <td style="background:white;padding:16px 28px;border-top:1px solid #f0f0f0;">
+                    <div style="font-size:10px;color:#aaa;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:10px;">Your Seats</div>
+                    <% @seats.each do |seat| %>
+                      <span style="display:inline-block;background:#f5f5f5;border:1px solid #e0e0e0;color:#333;padding:5px 14px;border-radius:4px;font-size:13px;font-weight:700;margin-right:6px;margin-bottom:4px;"><%= seat.seat_no %></span>
+                    <% end %>
+                  </td>
+                </tr>
+
+                <!-- Dashed Line -->
+                <tr>
+                  <td style="padding:0 28px;">
+                    <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                      <tr>
+                        <td style="border-top:2px dashed #e0e0e0;font-size:0;line-height:0;">&nbsp;</td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+
+                <!-- Total -->
+                <tr>
+                  <td style="background:#1a1a2e;padding:20px 28px;">
+                    <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                      <tr>
+                        <td style="color:rgba(255,255,255,0.7);font-size:13px;text-transform:uppercase;letter-spacing:1px;">Total Paid</td>
+                        <td align="right" style="color:#ff6f00;font-size:26px;font-weight:700;">₹<%= @total %></td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+
+              </table>
+              <!-- END TICKET -->
+
+              <!-- CTA Button -->
+              <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                <tr>
+                  <td align="center" style="padding:8px 0 32px;">
+                    <a href="http://localhost:5173/bookings"
+                       style="display:inline-block;background:#cc0000;color:white;padding:14px 44px;border-radius:4px;text-decoration:none;font-weight:700;font-size:13px;letter-spacing:2px;text-transform:uppercase;">
+                      VIEW MY BOOKINGS
+                    </a>
+                  </td>
+                </tr>
+              </table>
+
+            </td>
+          </tr>
+
+          <!-- FOOTER -->
+          <tr>
+            <td style="background:#f9f9f9;padding:24px 40px;text-align:center;border-top:1px solid #eee;border-radius:0 0 8px 8px;">
+              <div style="color:#cc0000;font-size:16px;font-weight:700;letter-spacing:1px;margin-bottom:8px;">BOOKMYSHOW</div>
+              <p style="font-size:11px;color:#bbb;line-height:1.8;margin:0;">This is an automated confirmation email. Please do not reply.</p>
+              <p style="font-size:11px;color:#bbb;line-height:1.8;margin:0;">© <%= Date.today.year %> BookMyShow. All rights reserved.</p>
+            </td>
+          </tr>
+
+        </table>
+      </td>
+    </tr>
+  </table>
+
+</body>
+</html>

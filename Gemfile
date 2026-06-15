@@ -69,7 +69,8 @@ gem 'arctic_admin'
 gem 'activeadmin_addons'
 
 gem "sidekiq"
-gem 'dotenv'
+gem 'dotenv-rails'
 gem 'sidekiq-cron' 
 gem 'stripe'
+gem 'rack-cors'
 
