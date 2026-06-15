@@ -1,8 +1,16 @@
-development:
+default: &default
   adapter: postgresql
   encoding: unicode
-  database: bookmyshow
   pool: 5
+
+development:
+  <<: *default
+  database: bookmyshow
   host: localhost
   username: rails
   password: rails
+
+production:
+  primary:
+    <<: *default
+    url: <%= ENV["DATABASE_URL"] %>
