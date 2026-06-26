@@ -60,7 +60,7 @@ group :test do
   gem "selenium-webdriver"
 end
 
-gem "devise" 
+gem 'devise-jwt'
 gem "byebug", "~> 11.1"
 gem 'activeadmin'
 gem 'sassc-rails'

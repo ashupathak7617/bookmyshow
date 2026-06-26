@@ -13,6 +13,8 @@ Rails.application.routes.draw do
     post "sign_up", to: "registrations#create"
     post "sign_in", to: "sessions#create"
     post "update/:id", to: "users#update"
+    delete "sign_out", to: "sessions#destroy"
+
   end
 
   devise_for :customers, controllers: {

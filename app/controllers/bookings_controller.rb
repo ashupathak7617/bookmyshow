@@ -1,5 +1,5 @@
 class BookingsController < ApplicationController
-  before_action :authenticate_customer!
+  before_action :authenticate_customer!, only: %w[ create show]
   skip_before_action :verify_authenticity_token
 
   def index
@@ -27,8 +27,8 @@ class BookingsController < ApplicationController
           }
         }],
         metadata: { booking_id: @booking.id },
-        success_url: "https://bookmyshow-frontend-h2z6.onrender.com/payment/success?booking_id=#{@booking.id}",
-        cancel_url:  "https://bookmyshow-frontend-h2z6.onrender.com/payment/cancel?booking_id=#{@booking.id}"
+        success_url: "#{ENV["BASE_URL"]}/payment/success?booking_id=#{@booking.id}",
+        cancel_url:  "#{ENV["BASE_URL"]}/payment/cancel?booking_id=#{@booking.id}"
       })
       @booking.update!(stripe_session_id: session.id, status: 'pending')
 

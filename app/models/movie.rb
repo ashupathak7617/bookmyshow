@@ -1,4 +1,6 @@
 class Movie < ApplicationRecord
+  # include Rails.application.routes.url_helpers
+
 	has_many :shows
 	has_many :theaters, through: :shows
   has_one_attached :image
@@ -7,6 +9,10 @@ class Movie < ApplicationRecord
   
   
   scope :find_by_name, ->(name) { where(name: name) if name }
+
+  # def image_url
+  #   Rails.application.routes.url_helpers.url_for(image) if image.attached?
+  # end
 
 	def self.ransackable_attributes(auth_object = nil)
     ["created_at", "id", "name", "release_date", "file", "theaters_id", "updated_at", "image_blob_id_eq", "image_attachment_id_eq"]
