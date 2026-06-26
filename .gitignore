@@ -36,3 +36,5 @@
 Downloads/
 *.tar.gz
 dump.rdb
+.byebug_history
+redis-6.0.8.tar.gz.*
