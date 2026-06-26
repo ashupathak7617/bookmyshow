@@ -51,7 +51,7 @@ group :development do
   gem "web-console"
 
   # Highlight the fine-grained location where an error occurred [https://github.com/ruby/error_highlight]
-  gem "error_highlight", ">= 0.4.0", platforms: [ :ruby ]
+  gem "error_highlight", ">= 0.4.0", "< 0.7.0", platforms: [ :ruby ]
 end
 
 group :test do
@@ -60,17 +60,16 @@ group :test do
   gem "selenium-webdriver"
 end
 
-gem "devise" 
+gem "devise-jwt"
 gem "byebug", "~> 11.1"
-gem 'activeadmin'
-gem 'sassc-rails'
-gem 'arctic_admin'
+gem "activeadmin"
+gem "sassc-rails"
+gem "arctic_admin"
 # gem 'arctic_admin'
-gem 'activeadmin_addons'
+gem "activeadmin_addons"
 
 gem "sidekiq"
-gem 'dotenv-rails'
-gem 'sidekiq-cron' 
-gem 'stripe'
-gem 'rack-cors'
-
+gem "dotenv-rails"
+gem "sidekiq-cron"
+gem "stripe"
+gem "rack-cors"

@@ -1,3 +1,2 @@
 module ShowsHelper
-	
 end

@@ -8,7 +8,7 @@ class Booking < ApplicationRecord
 
   after_save :update_seat
   # validate :seat_must_be_avaible
-  
+
   validates_presence_of :seats, message: "Your Booking Has Been Cancelled ! Please select atleast one seat...!"
 
   def update_seat

@@ -1,10 +1,10 @@
 class BookingsController < ApplicationController
-  before_action :authenticate_customer!
+  before_action :authenticate_customer!, only: %w[ create show]
   skip_before_action :verify_authenticity_token
 
   def index
     bookings = Booking.where(customer_id: current_customer.id)
-    render json: bookings, include: {show: {include: :movie}, seats: {}}
+    render json: bookings, include: { show: { include: :movie }, seats: {} }
   end
 
   def create
@@ -14,23 +14,23 @@ class BookingsController < ApplicationController
 
     if @booking.save
       session = Stripe::Checkout::Session.create({
-        mode: 'payment',
-        line_items: [{
+        mode: "payment",
+        line_items: [ {
           quantity: 1,
           price_data: {
-            currency: 'inr',
+            currency: "inr",
             unit_amount: @booking.seats.sum(:price) * 100,
             product_data: {
               name: @movie.name,
               description: "Seats: #{@booking.seats.map(&:seat_no).join(', ')}"
             }
           }
-        }],
+        } ],
         metadata: { booking_id: @booking.id },
-        success_url: "https://bookmyshow-frontend-h2z6.onrender.com/payment/success?booking_id=#{@booking.id}",
-        cancel_url:  "https://bookmyshow-frontend-h2z6.onrender.com/payment/cancel?booking_id=#{@booking.id}"
+        success_url: "#{ENV["BASE_URL"]}/payment/success?booking_id=#{@booking.id}",
+        cancel_url:  "#{ENV["BASE_URL"]}/payment/cancel?booking_id=#{@booking.id}"
       })
-      @booking.update!(stripe_session_id: session.id, status: 'pending')
+      @booking.update!(stripe_session_id: session.id, status: "pending")
 
       render json: { stripe_url: session.url }
     else
@@ -40,7 +40,7 @@ class BookingsController < ApplicationController
 
   def show
     booking = Booking.find(params[:id])
-    render json: booking, include: [:show, :seats]
+    render json: booking, include: [ :show, :seats ]
   end
 
   def success

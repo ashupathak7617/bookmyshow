@@ -1,7 +1,6 @@
-require 'sidekiq'
+require "sidekiq"
 
 class SendMailShowInfoJob
-
   include Sidekiq::Job
   def perform
     today_shows = Show.where("created_at >= ?", Time.zone.now.beginning_of_day)

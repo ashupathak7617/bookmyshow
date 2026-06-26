@@ -3,7 +3,7 @@ class CreateTickets < ActiveRecord::Migration[7.2]
     create_table :tickets do |t|
       t.decimal :price
       t.string :status
-      
+
       t.references :movie, null: false, foreign_key: true
       t.references :show, null: false, foreign_key: true
       t.references :customer, null: false, foreign_key: true
