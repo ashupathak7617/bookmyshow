@@ -1,5 +1,5 @@
 class MoviesController < ApplicationController
-  before_action :set_params, only: [:show]
+  before_action :set_params, only: [ :show ]
   def index
     @movies = Movie.all
     @movies = @movies.where("name ILIKE ?", "%#{params[:search]}%") if params[:search].present?
@@ -25,5 +25,4 @@ class MoviesController < ApplicationController
   def set_params
     @movie = Movie.find(params[:id])
   end
-
 end

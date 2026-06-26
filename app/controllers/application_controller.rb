@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :null_session
   allow_browser versions: :modern
-  
+
   def movie
     @movie ||= Movie.find(movie_params)
   end
@@ -18,18 +18,17 @@ class ApplicationController < ActionController::Base
   private
 
   def authenticate_customer!
-    token = request.headers['Authorization']&.split(' ')&.last
+    token = request.headers["Authorization"]&.split(" ")&.last
 
     if token.present?
       begin
         decoded = Warden::JWTAuth::TokenDecoder.new.call(token)
-        @current_customer = Customer.find(decoded['sub'])
+        @current_customer = Customer.find(decoded["sub"])
       rescue => e
-        render json: { error: 'Unauthorized' }, status: :unauthorized
+        render json: { error: "Unauthorized" }, status: :unauthorized
       end
     else
-      render json: { error: 'Unauthorized' }, status: :unauthorized
+      render json: { error: "Unauthorized" }, status: :unauthorized
     end
   end
-
 end

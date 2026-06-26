@@ -17,8 +17,8 @@
 #   runner "AnotherModel.prune_old_records"
 # end
 
-# every :day, at: '16:00pm' do   
+# every :day, at: '16:00pm' do
 # 	runner 'SendMailMailer.perform_later'
-#  end 
+#  end
 
 # Learn more: http://github.com/javan/whenever

@@ -91,14 +91,12 @@ Rails.application.configure do
 
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
-  address:              'smtp.gmail.com',
+  address:              "smtp.gmail.com",
   port:                 587,
-  user_name:            'ashupathak7617@gmail.com',
-  password:             'ztfx yojl nvay mgsj',
-  authentication:       'plain',
+  user_name:            "ashupathak7617@gmail.com",
+  password:             "ztfx yojl nvay mgsj",
+  authentication:       "plain",
   enable_starttls_auto: true  }
 
   config.active_job.queue_adapter = :sidekiq
-
 end
-

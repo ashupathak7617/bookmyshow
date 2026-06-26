@@ -1,5 +1,5 @@
 ActiveAdmin.register Movie do
-   # remove_filter :image_attachments
+  # remove_filter :image_attachments
 
   # insert_tag renderer_for(:index)
   # See permitted parameters documentation:
@@ -17,7 +17,7 @@ ActiveAdmin.register Movie do
   #   permitted << :other if params[:action] == 'create' && current_user.admin?
   #   permitted
   # end
-  
+
   index do
     selectable_column
     id_column
@@ -41,7 +41,7 @@ ActiveAdmin.register Movie do
       row :name
       row :release_date
       row :image do |ad|
-        image_tag url_for(ad.image),size: "200x200"
+        image_tag url_for(ad.image), size: "200x200"
       end
     end
   end

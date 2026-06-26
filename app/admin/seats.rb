@@ -1,10 +1,9 @@
 ActiveAdmin.register Seat do
-
-  # See permitted parameters documentation:
-  # https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
-  #
-  # Uncomment all parameters which should be permitted for assignment
-  #
+   # See permitted parameters documentation:
+   # https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
+   #
+   # Uncomment all parameters which should be permitted for assignment
+   #
    permit_params :seat_no, :screen_id, :create_seat, :status, :price
    config.batch_actions = false
   #
@@ -18,14 +17,14 @@ ActiveAdmin.register Seat do
   form do |f|
     f.inputs do
       f.input :screen
-      f.input :seat_no, placeholder:"Enter number of seats you want to create"
+      f.input :seat_no, placeholder: "Enter number of seats you want to create"
       f.input :price
     end
     f.actions
   end
 
   controller do
-     def create 
+     def create
       screen_id = params[:seat][:screen_id].to_i
       seat_create = params[:seat][:seat_no].to_i
       Seat.create_seats(screen_id, seat_create)

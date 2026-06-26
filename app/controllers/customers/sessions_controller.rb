@@ -1,5 +1,4 @@
 class Customers::SessionsController < ApplicationController
-
   def create
     customer = Customer.find_by(email: params[:customer][:email])
     if customer&.valid_password?(params[:customer][:password])
@@ -22,7 +21,7 @@ class Customers::SessionsController < ApplicationController
   end
 
   def destroy
-    token = request.headers['Authorization']&.split(' ')&.last
+    token = request.headers["Authorization"]&.split(" ")&.last
     render json: { message: "Logged out successfully" }
   end
 end
