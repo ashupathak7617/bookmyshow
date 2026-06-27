@@ -11,24 +11,22 @@ class ApplicationController < ActionController::Base
   end
 
   def current_customer
+    return @current_customer if @current_customer
     authenticate_customer!
     @current_customer
   end
 
-  private
-
   def authenticate_customer!
     token = request.headers["Authorization"]&.split(" ")&.last
-
     if token.present?
       begin
         decoded = Warden::JWTAuth::TokenDecoder.new.call(token)
         @current_customer = Customer.find(decoded["sub"])
       rescue => e
-        render json: { error: "Unauthorized" }, status: :unauthorized
+        render json: { error: "Unauthorized" }, status: :unauthorized and return
       end
     else
-      render json: { error: "Unauthorized" }, status: :unauthorized
+      return nil
     end
   end
 end
