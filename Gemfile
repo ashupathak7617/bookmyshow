@@ -73,3 +73,5 @@ gem "dotenv-rails"
 gem "sidekiq-cron"
 gem "stripe"
 gem "rack-cors"
+gem 'nokogiri', '1.18.6'
+gem 'aws-sdk-s3'
