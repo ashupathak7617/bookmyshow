@@ -1,6 +1,13 @@
 class ApplicationController < ActionController::Base
-  protect_from_forgery with: :null_session
-  allow_browser versions: :modern
+  protect_from_forgery with: :exception
+
+  skip_before_action :verify_authenticity_token, if: :api_request?
+
+  def api_request?
+    request.headers["Authorization"].present? ||
+    request.content_type&.include?("application/json") ||
+    (request.format.json? && !request.path.start_with?('/admin'))
+  end
 
   def movie
     @movie ||= Movie.find(movie_params)
