@@ -1,7 +1,8 @@
 class MoviesController < ApplicationController
   before_action :set_params, only: [ :show ]
+
   def index
-    @movies = Movie.all
+    @movies = Movie.joins(:shows).distinct
     @movies = @movies.where("name ILIKE ?", "%#{params[:search]}%") if params[:search].present?
     render json: @movies.map { |movie|
       {
