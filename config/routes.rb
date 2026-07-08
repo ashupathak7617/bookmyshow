@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get '/health', to: proc { [200, {}, ['OK']] }
   root "movies#index"
 
   require "sidekiq/web"
