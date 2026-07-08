@@ -2,3 +2,8 @@ send_mail_show_info:
   cron: '* * * * *'
   class: SendMailShowInfoJob
   queues: default
+
+send_activity_to_app:
+  cron: '0 * * * *'
+  class: SendActivityToAppJob
+  queues: default
