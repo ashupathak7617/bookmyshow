@@ -3,6 +3,7 @@
 class Customers::RegistrationsController < Devise::RegistrationsController
   # before_action :configure_sign_up_params, only: [:create]
   # before_action :configure_account_update_params, only: [:update]
+  prepend_before_action :assert_is_devise_resource!, only: [:create]
   def create
     @customer = Customer.new(sign_up_params)
 

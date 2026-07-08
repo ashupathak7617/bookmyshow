@@ -5,7 +5,8 @@ class ShowsController < ApplicationController
     @theaters = @movie.theaters.distinct
     render json: {
       movie: @movie,
-      theaters: @theaters.as_json(include: { shows: { only: [ :id, :show_time, :screen_id ] } })
+      theaters: @theaters.as_json(include: { shows: { only: [ :id, :show_time, :screen_id ] } }),
+      shows: @movie.shows
     }
   end
 

@@ -2,13 +2,13 @@ default: &default
   adapter: postgresql
   encoding: unicode
   pool: 5
+  host: <%= ENV.fetch("DATABASE_HOST") { "localhost" } %>
+  username: <%= ENV.fetch("DATABASE_USERNAME") { "rails" } %>
+  password: <%= ENV.fetch("DATABASE_PASSWORD") { "rails" } %>
 
 development:
   <<: *default
   database: bookmyshow
-  host: localhost
-  username: rails
-  password: rails
 
 production:
   primary:

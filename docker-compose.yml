@@ -1,0 +1,63 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: bookmyshow-postgres
+    environment:
+      POSTGRES_USER: rails
+      POSTGRES_PASSWORD: rails
+      POSTGRES_DB: bookmyshow
+    volumes:
+      - bookmyshow_pgdata:/var/lib/postgresql/data
+    ports:
+      - "5434:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U rails"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:7-alpine
+    container_name: bookmyshow-redis
+    ports:
+      - "6381:6379"
+
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    container_name: bookmyshow-backend
+    env_file:
+      - .env
+    environment:
+      DATABASE_HOST: bookmyshow-postgres
+      DATABASE_USERNAME: rails
+      DATABASE_PASSWORD: rails
+      RAILS_ENV: development
+      REDIS_URL: redis://bookmyshow-redis:6379/0
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/app
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_started
+
+  frontend:
+    build:
+      context: ../bookmyshow-frontend
+    container_name: bookmyshow-frontend
+    environment:
+      VITE_API_URL: http://localhost:3000
+    ports:
+      - "5173:5173"
+    volumes:
+      - ../bookmyshow-frontend:/app
+      - /app/node_modules
+    depends_on:
+      - backend
+
+volumes:
+  bookmyshow_pgdata:
